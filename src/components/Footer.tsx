@@ -1,4 +1,4 @@
-import { Heart, Mail, Twitter, Youtube, Instagram, Facebook } from 'lucide-react';
+import { Heart, Mail, X, Youtube, Instagram, Facebook } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="space-y-4">
-            <div className="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+            <div className="text-2xl font-bold text-foreground">
               TechNews
             </div>
             <p className="text-sm text-muted-foreground">
@@ -15,7 +15,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Twitter className="h-5 w-5" />
+                <X className="h-5 w-5" />
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                 <Youtube className="h-5 w-5" />
@@ -71,7 +71,7 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="text-sm text-muted-foreground">
-            © 2024 TechNews. Todos los derechos reservados.
+            © 2025 TechNews. Todos los derechos reservados.
           </div>
           <div className="flex items-center space-x-1 text-sm text-muted-foreground">
             <span>Hecho con</span>
