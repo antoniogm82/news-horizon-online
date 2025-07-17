@@ -57,6 +57,11 @@ const Header = ({ onSearch, onCategoryFilter, searchQuery, activeCategory }: Hea
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
+            <img 
+              src="/lovable-uploads/4abda72d-233e-4839-935c-a7da735b92a5.png" 
+              alt="TechNews Logo" 
+              className="h-8 w-8 mr-2"
+            />
             <div className="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
               TechNews
             </div>
