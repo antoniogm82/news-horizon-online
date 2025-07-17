@@ -1,5 +1,4 @@
-import { Heart, Mail, Youtube, Instagram, Facebook } from 'lucide-react';
-import xLogo from '../assets/x-logo.png';
+import { Heart, Mail, X, Youtube, Instagram, Facebook } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -16,7 +15,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <img src={xLogo} alt="X" className="h-5 w-5" />
+                <X className="h-5 w-5" />
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                 <Youtube className="h-5 w-5" />
