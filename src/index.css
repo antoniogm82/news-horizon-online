@@ -2,39 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* TechNews Design System - Modern tech news website inspired by Xataka.com
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 210 11% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 210 11% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 210 11% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary blue - main brand color */
+    --primary: 214 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 214 100% 95%;
+    --primary-dark: 214 100% 40%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary colors */
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 210 11% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 210 11% 60%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 25 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 25 100% 95%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 210 20% 90%;
+    --input: 210 20% 96%;
+    --ring: 214 100% 50%;
+
+    /* Tech news specific colors */
+    --tech-orange: 25 100% 50%;
+    --tech-green: 120 100% 35%;
+    --tech-purple: 260 100% 50%;
+    --tech-red: 0 100% 50%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(214 100% 50%), hsl(214 100% 60%));
+    --gradient-hero: linear-gradient(135deg, hsl(214 100% 50% / 0.9), hsl(210 11% 15% / 0.9));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(210 20% 98%));
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(210 11% 15% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(210 11% 15% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(210 11% 15% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(210 11% 15% / 0.1);
+    --shadow-primary: 0 10px 30px -10px hsl(214 100% 50% / 0.3);
+
+    /* Animations */
+    --transition-fast: all 0.15s ease-out;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 
     --radius: 0.5rem;
 
@@ -56,33 +84,54 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 210 11% 8%;
+    --foreground: 210 20% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 210 11% 10%;
+    --card-foreground: 210 20% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 210 11% 10%;
+    --popover-foreground: 210 20% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 214 100% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 214 100% 15%;
+    --primary-dark: 214 100% 45%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 210 11% 15%;
+    --secondary-foreground: 210 20% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 210 11% 15%;
+    --muted-foreground: 210 20% 70%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 25 100% 55%;
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 25 100% 15%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 210 11% 20%;
+    --input: 210 11% 15%;
+    --ring: 214 100% 55%;
+
+    /* Tech news specific colors for dark mode */
+    --tech-orange: 25 100% 55%;
+    --tech-green: 120 100% 40%;
+    --tech-purple: 260 100% 55%;
+    --tech-red: 0 100% 55%;
+
+    /* Dark gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(214 100% 55%), hsl(214 100% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(214 100% 55% / 0.9), hsl(210 11% 8% / 0.9));
+    --gradient-card: linear-gradient(135deg, hsl(210 11% 10%), hsl(210 11% 12%));
+
+    /* Dark shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.2);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.3);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.3);
+    --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.3);
+    --shadow-primary: 0 10px 30px -10px hsl(214 100% 55% / 0.4);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -100,6 +149,74 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-['Inter',sans-serif];
+  }
+}
+
+@layer utilities {
+  /* Gradient utilities */
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+
+  /* Shadow utilities */
+  .shadow-primary {
+    box-shadow: var(--shadow-primary);
+  }
+
+  /* Transition utilities */
+  .transition-fast {
+    transition: var(--transition-fast);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .transition-slow {
+    transition: var(--transition-slow);
+  }
+
+  /* Hover effects */
+  .hover-scale {
+    @apply transition-smooth hover:scale-105;
+  }
+
+  .hover-lift {
+    @apply transition-smooth hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  /* Text utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Category colors */
+  .category-smartphones {
+    @apply bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200;
+  }
+
+  .category-ai {
+    @apply bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200;
+  }
+
+  .category-gadgets {
+    @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200;
+  }
+
+  .category-software {
+    @apply bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200;
+  }
+
+  .category-videojuegos {
+    @apply bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200;
   }
 }
