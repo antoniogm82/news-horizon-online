@@ -1,4 +1,5 @@
 import { Clock, User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { NewsItem } from '@/data/news';
 
 interface NewsCardProps {
@@ -8,6 +9,7 @@ interface NewsCardProps {
 }
 
 const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps) => {
+  const navigate = useNavigate();
   const getCategoryClass = (category: string) => {
     const categoryClasses = {
       smartphones: 'category-smartphones',
@@ -31,7 +33,10 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
 
   if (variant === 'hero') {
     return (
-      <div className="relative h-96 md:h-[500px] overflow-hidden rounded-xl group cursor-pointer">
+      <div 
+        className="relative h-96 md:h-[500px] overflow-hidden rounded-xl group cursor-pointer"
+        onClick={() => navigate(`/articulo/${news.id}`)}
+      >
         <img 
           src={news.image} 
           alt={news.title}
@@ -68,7 +73,10 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
 
   if (variant === 'compact') {
     return (
-      <article className="flex space-x-3 hover-lift cursor-pointer">
+      <article 
+        className="flex space-x-3 hover-lift cursor-pointer"
+        onClick={() => navigate(`/articulo/${news.id}`)}
+      >
         <img 
           src={news.image} 
           alt={news.title}
@@ -89,7 +97,10 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
   }
 
   return (
-    <article className="bg-card border border-border rounded-xl overflow-hidden hover-lift transition-all duration-300 group cursor-pointer">
+    <article 
+      className="bg-card border border-border rounded-xl overflow-hidden hover-lift transition-all duration-300 group cursor-pointer"
+      onClick={() => navigate(`/articulo/${news.id}`)}
+    >
       <div className="relative overflow-hidden">
         <img 
           src={news.image} 

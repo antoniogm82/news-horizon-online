@@ -17,7 +17,22 @@ export const newsData: NewsItem[] = [
     id: 1,
     title: "El nuevo iPhone 15 Pro revoluciona la fotografía móvil con IA",
     excerpt: "Apple introduce funciones de inteligencia artificial que transforman completamente la experiencia fotográfica en smartphones.",
-    content: "La nueva generación de iPhone lleva la fotografía móvil a un nivel completamente nuevo...",
+    content: `<h2>Revolución en la fotografía móvil</h2>
+    <p>Apple ha presentado el iPhone 15 Pro, un dispositivo que marca un antes y un después en la fotografía móvil gracias a la integración de inteligencia artificial avanzada. Esta nueva generación no solo mejora la calidad de imagen, sino que redefine completamente cómo interactuamos con la cámara de nuestro smartphone.</p>
+    
+    <h3>Nuevas funciones de IA</h3>
+    <p>El sistema de cámara del iPhone 15 Pro incorpora un nuevo chip de procesamiento de imagen que utiliza algoritmos de aprendizaje automático para:</p>
+    <ul>
+      <li><strong>Reconocimiento de escenas inteligente:</strong> Identifica automáticamente más de 200 tipos de escenas diferentes</li>
+      <li><strong>Mejora automática de retratos:</strong> Ajusta la iluminación y el enfoque en tiempo real</li>
+      <li><strong>Estabilización predictiva:</strong> Anticipa el movimiento para eliminar completamente el desenfoque</li>
+      <li><strong>HDR computacional:</strong> Combina múltiples exposiciones para crear imágenes perfectamente equilibradas</li>
+    </ul>
+    
+    <h3>Impacto en la industria</h3>
+    <p>Estas innovaciones no solo benefician a los usuarios finales, sino que establecen un nuevo estándar para toda la industria. Los fotógrafos profesionales ya están adoptando el iPhone 15 Pro como herramienta complementaria para su trabajo, especialmente en situaciones donde la portabilidad es crucial.</p>
+    
+    <p>Con un precio que parte de los 1.199 euros, el iPhone 15 Pro se posiciona como la opción premium para aquellos que buscan la mejor experiencia fotográfica en un smartphone.</p>`,
     image: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&h=600&fit=crop",
     category: "smartphones",
     date: "2024-01-15",
@@ -30,7 +45,22 @@ export const newsData: NewsItem[] = [
     id: 2,
     title: "ChatGPT-5 promete cambiar para siempre la forma de trabajar",
     excerpt: "OpenAI anuncia la próxima versión de su modelo de lenguaje con capacidades multimodales avanzadas.",
-    content: "La nueva versión de ChatGPT incluye mejoras significativas en razonamiento...",
+    content: `<h2>La nueva era de la inteligencia artificial</h2>
+    <p>OpenAI ha anunciado oficialmente ChatGPT-5, la próxima evolución de su revolucionario modelo de lenguaje que promete transformar radicalmente la forma en que trabajamos y nos relacionamos con la tecnología. Esta nueva versión representa un salto cuántico en capacidades de razonamiento y comprensión.</p>
+    
+    <h3>Capacidades multimodales avanzadas</h3>
+    <p>ChatGPT-5 introduce mejoras significativas que incluyen:</p>
+    <ul>
+      <li><strong>Procesamiento de video en tiempo real:</strong> Análisis y comprensión de contenido audiovisual</li>
+      <li><strong>Razonamiento matemático avanzado:</strong> Resolución de problemas complejos paso a paso</li>
+      <li><strong>Generación de código más precisa:</strong> Desarrollo de aplicaciones completas con mínimas instrucciones</li>
+      <li><strong>Memoria a largo plazo:</strong> Conserva contexto de conversaciones durante semanas</li>
+    </ul>
+    
+    <h3>Impacto en el mundo laboral</h3>
+    <p>Las nuevas capacidades de ChatGPT-5 están destinadas a revolucionar múltiples sectores profesionales, desde la programación y el diseño hasta la educación y la medicina. Los primeros tests beta muestran una mejora del 400% en precisión comparado con su predecesor.</p>
+    
+    <p>OpenAI planea lanzar ChatGPT-5 en el segundo trimestre de 2024, con acceso inicial para suscriptores de ChatGPT Plus antes de expandirse al público general.</p>`,
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop",
     category: "ai",
     date: "2024-01-14",
