@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Search, Moon, Sun, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
   onSearch: (query: string) => void;
@@ -14,6 +15,7 @@ const Header = ({ onSearch, onCategoryFilter, searchQuery, activeCategory }: Hea
   const [darkMode, setDarkMode] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Check for saved theme preference or default to light mode
@@ -33,14 +35,14 @@ const Header = ({ onSearch, onCategoryFilter, searchQuery, activeCategory }: Hea
   };
 
   const navItems = [
-    { name: 'Inicio', href: '/', category: 'all' },
-    { name: 'Smartphones', href: '/smartphones', category: 'smartphones' },
-    { name: 'IA', href: '/ia', category: 'ai' },
-    { name: 'Gadgets', href: '/gadgets', category: 'gadgets' },
-    { name: 'Software', href: '/software', category: 'software' },
-    { name: 'Videojuegos', href: '/videojuegos', category: 'videojuegos' },
-    { name: 'Reviews', href: '/reviews', category: 'reviews' },
-    { name: 'Contacto', href: '/contacto', category: 'contacto' },
+    { name: 'Inicio', href: '/', category: 'all', isCategory: true },
+    { name: 'Smartphones', href: '/smartphones', category: 'smartphones', isCategory: true },
+    { name: 'IA', href: '/ia', category: 'ai', isCategory: true },
+    { name: 'Gadgets', href: '/gadgets', category: 'gadgets', isCategory: true },
+    { name: 'Software', href: '/software', category: 'software', isCategory: true },
+    { name: 'Videojuegos', href: '/videojuegos', category: 'videojuegos', isCategory: true },
+    { name: 'Reviews', href: '/reviews', category: 'reviews', isCategory: true },
+    { name: 'Contacto', href: '/contacto', category: 'contacto', isCategory: false },
   ];
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -72,7 +74,13 @@ const Header = ({ onSearch, onCategoryFilter, searchQuery, activeCategory }: Hea
             {navItems.map((item) => (
               <button
                 key={item.name}
-                onClick={() => onCategoryFilter(item.category)}
+                onClick={() => {
+                  if (item.isCategory) {
+                    onCategoryFilter(item.category);
+                  } else {
+                    navigate(item.href);
+                  }
+                }}
                 className={`text-sm font-medium transition-colors hover:text-primary ${
                   activeCategory === item.category
                     ? 'text-primary'
@@ -178,7 +186,11 @@ const Header = ({ onSearch, onCategoryFilter, searchQuery, activeCategory }: Hea
                 <button
                   key={item.name}
                   onClick={() => {
-                    onCategoryFilter(item.category);
+                    if (item.isCategory) {
+                      onCategoryFilter(item.category);
+                    } else {
+                      navigate(item.href);
+                    }
                     setIsMenuOpen(false);
                   }}
                   className={`text-left px-2 py-2 text-sm font-medium transition-colors hover:text-primary ${
