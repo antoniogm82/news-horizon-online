@@ -76,7 +76,16 @@ const Header = ({ onSearch, onCategoryFilter, searchQuery, activeCategory }: Hea
                 key={item.name}
                 onClick={() => {
                   if (item.isCategory) {
-                    onCategoryFilter(item.category);
+                    // Para categorías, navega a inicio y aplica el filtro
+                    if (window.location.pathname !== '/') {
+                      navigate('/');
+                      // Pequeño delay para asegurar que la página se cargue antes de aplicar el filtro
+                      setTimeout(() => {
+                        onCategoryFilter(item.category);
+                      }, 100);
+                    } else {
+                      onCategoryFilter(item.category);
+                    }
                   } else {
                     navigate(item.href);
                   }
@@ -187,7 +196,15 @@ const Header = ({ onSearch, onCategoryFilter, searchQuery, activeCategory }: Hea
                   key={item.name}
                   onClick={() => {
                     if (item.isCategory) {
-                      onCategoryFilter(item.category);
+                      // Para categorías, navega a inicio y aplica el filtro
+                      if (window.location.pathname !== '/') {
+                        navigate('/');
+                        setTimeout(() => {
+                          onCategoryFilter(item.category);
+                        }, 100);
+                      } else {
+                        onCategoryFilter(item.category);
+                      }
                     } else {
                       navigate(item.href);
                     }
