@@ -1,3 +1,4 @@
+
 {
   "name": "TechNews - Noticias de Tecnología",
   "short_name": "TechNews",
@@ -9,9 +10,9 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "32x32",
-      "type": "image/x-icon"
+      "src": "/lovable-uploads/6dbb477a-ba90-4163-b183-b29f5c8ba653.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
   "categories": ["news", "technology"],
