@@ -75,7 +75,7 @@ const RichTextEditor = ({ content, onChange }: RichTextEditorProps) => {
     },
     editorProps: {
       attributes: {
-        class: 'prose prose-sm max-w-none focus:outline-none min-h-[400px] p-4',
+        class: 'prose prose-sm max-w-none focus:outline-none min-h-[450px] p-6',
       },
     },
   });
@@ -363,7 +363,7 @@ const RichTextEditor = ({ content, onChange }: RichTextEditorProps) => {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         {/* Editor */}
         <div className="lg:col-span-3">
-          <div className="border rounded-lg min-h-[500px] focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent">
+          <div className="border rounded-lg min-h-[500px] focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent overflow-hidden">
             <EditorContent editor={editor} />
           </div>
         </div>
