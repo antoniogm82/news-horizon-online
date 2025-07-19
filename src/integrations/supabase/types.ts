@@ -14,6 +14,87 @@ export type Database = {
   }
   public: {
     Tables: {
+      auto_articles_log: {
+        Row: {
+          created_at: string
+          error_message: string | null
+          id: string
+          post_id: string | null
+          setting_id: string
+          status: string
+          topic: string
+        }
+        Insert: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          post_id?: string | null
+          setting_id: string
+          status?: string
+          topic: string
+        }
+        Update: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          post_id?: string | null
+          setting_id?: string
+          status?: string
+          topic?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "auto_articles_log_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "auto_articles_log_setting_id_fkey"
+            columns: ["setting_id"]
+            isOneToOne: false
+            referencedRelation: "auto_content_settings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      auto_content_settings: {
+        Row: {
+          category: string
+          created_at: string
+          frequency_hours: number
+          id: string
+          is_active: boolean
+          prompt_template: string
+          topic: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          frequency_hours?: number
+          id?: string
+          is_active?: boolean
+          prompt_template: string
+          topic: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          frequency_hours?: number
+          id?: string
+          is_active?: boolean
+          prompt_template?: string
+          topic?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       posts: {
         Row: {
           alt_text: string | null
