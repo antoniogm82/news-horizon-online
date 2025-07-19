@@ -12,6 +12,7 @@ import HeroManager from '@/pages/HeroManager';
 import ScheduledPosts from '@/pages/ScheduledPosts';
 import Profile from '@/pages/Profile';
 import Settings from '@/pages/Settings';
+import AutoContent from '@/pages/AutoContent';
 
 const DashboardLayout = () => {
   const { signOut, profile } = useAuth();
@@ -75,6 +76,7 @@ const DashboardLayout = () => {
               <Route index element={<Dashboard />} />
               <Route path="crear" element={<CreateArticle />} />
               <Route path="articulos" element={<MyArticles />} />
+              <Route path="auto-content" element={<AutoContent />} />
               <Route path="hero" element={<HeroManager />} />
               <Route path="programados" element={<ScheduledPosts />} />
               <Route path="articulos/:id" element={<div>Article Editor (TODO)</div>} />

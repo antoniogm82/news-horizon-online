@@ -10,7 +10,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Pin,
-  Clock
+  Clock,
+  Bot
 } from 'lucide-react';
 import {
   Sidebar,
@@ -30,6 +31,7 @@ const menuItems = [
   { title: 'Dashboard', url: '/dashboard', icon: BarChart3 },
   { title: 'Crear Artículo', url: '/dashboard/crear', icon: PenTool },
   { title: 'Mis Artículos', url: '/dashboard/articulos', icon: FileText },
+  { title: 'Automatización IA', url: '/dashboard/auto-content', icon: Bot },
   { title: 'Gestionar Hero', url: '/dashboard/hero', icon: Pin },
   { title: 'Programados', url: '/dashboard/programados', icon: Clock },
   { title: 'Perfil', url: '/dashboard/perfil', icon: User },
