@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import RichTextEditor from '@/components/RichTextEditor';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
@@ -35,6 +36,7 @@ const CreateArticle = () => {
   const [publishDate, setPublishDate] = useState<Date>();
   const [publishTime, setPublishTime] = useState('');
   const [isHeroPinned, setIsHeroPinned] = useState(false);
+  const [articleContent, setArticleContent] = useState('');
   const { user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -73,7 +75,7 @@ const CreateArticle = () => {
 
     const formData = new FormData(e.currentTarget);
     const title = formData.get('title') as string;
-    const content = formData.get('content') as string;
+    const content = articleContent; // Usar el contenido del editor rico
     const excerpt = formData.get('excerpt') as string;
     const category = formData.get('category') as string;
     const image_url = formData.get('image_url') as string;
@@ -232,15 +234,14 @@ const CreateArticle = () => {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="content">Contenido *</Label>
-                  <Textarea
-                    id="content"
-                    name="content"
-                    placeholder="Escribe el contenido completo de tu artículo..."
-                    rows={15}
-                    required
-                  />
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="content">Contenido *</Label>
+                    <RichTextEditor 
+                      content={articleContent}
+                      onChange={setArticleContent}
+                    />
+                  </div>
                 </div>
               </CardContent>
             </Card>
