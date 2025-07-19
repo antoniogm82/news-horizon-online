@@ -16,53 +16,101 @@ export type Database = {
     Tables: {
       posts: {
         Row: {
+          alt_text: string | null
           author_id: string | null
+          canonical_url: string | null
           category: string
           content: string
           created_at: string | null
           excerpt: string | null
           featured: boolean | null
+          focus_keyword: string | null
           id: string
           image_url: string | null
+          keywords: string[] | null
+          meta_description: string | null
+          meta_title: string | null
+          og_description: string | null
+          og_image: string | null
+          og_title: string | null
           published: boolean | null
           published_at: string | null
+          reading_time: number | null
+          robots_meta: string | null
           slug: string
+          structured_data: Json | null
           tags: string[] | null
           title: string
+          twitter_card_type: string | null
+          twitter_description: string | null
+          twitter_image: string | null
+          twitter_title: string | null
           updated_at: string | null
           views: number | null
         }
         Insert: {
+          alt_text?: string | null
           author_id?: string | null
+          canonical_url?: string | null
           category?: string
           content: string
           created_at?: string | null
           excerpt?: string | null
           featured?: boolean | null
+          focus_keyword?: string | null
           id?: string
           image_url?: string | null
+          keywords?: string[] | null
+          meta_description?: string | null
+          meta_title?: string | null
+          og_description?: string | null
+          og_image?: string | null
+          og_title?: string | null
           published?: boolean | null
           published_at?: string | null
+          reading_time?: number | null
+          robots_meta?: string | null
           slug: string
+          structured_data?: Json | null
           tags?: string[] | null
           title: string
+          twitter_card_type?: string | null
+          twitter_description?: string | null
+          twitter_image?: string | null
+          twitter_title?: string | null
           updated_at?: string | null
           views?: number | null
         }
         Update: {
+          alt_text?: string | null
           author_id?: string | null
+          canonical_url?: string | null
           category?: string
           content?: string
           created_at?: string | null
           excerpt?: string | null
           featured?: boolean | null
+          focus_keyword?: string | null
           id?: string
           image_url?: string | null
+          keywords?: string[] | null
+          meta_description?: string | null
+          meta_title?: string | null
+          og_description?: string | null
+          og_image?: string | null
+          og_title?: string | null
           published?: boolean | null
           published_at?: string | null
+          reading_time?: number | null
+          robots_meta?: string | null
           slug?: string
+          structured_data?: Json | null
           tags?: string[] | null
           title?: string
+          twitter_card_type?: string | null
+          twitter_description?: string | null
+          twitter_image?: string | null
+          twitter_title?: string | null
           updated_at?: string | null
           views?: number | null
         }
