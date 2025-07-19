@@ -62,6 +62,10 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
           src={news.image_url || '/placeholder.svg'} 
           alt={news.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          loading="lazy"
+          decoding="async"
+          width="800"
+          height="500"
         />
         <div className="absolute inset-0 gradient-hero" />
         <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end text-white">
@@ -102,6 +106,10 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
           src={news.image_url || '/placeholder.svg'} 
           alt={news.title}
           className="w-20 h-20 rounded-lg object-cover flex-shrink-0"
+          loading="lazy"
+          decoding="async"
+          width="80"
+          height="80"
         />
         <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-sm line-clamp-2 text-card-foreground hover:text-primary transition-colors">
@@ -127,6 +135,10 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
           src={news.image_url || '/placeholder.svg'} 
           alt={news.title}
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
+          decoding="async"
+          width="400"
+          height="192"
         />
         <div className="absolute top-3 left-3">
           <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getCategoryClass(news.category)}`}>

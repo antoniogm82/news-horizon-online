@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,20 +7,62 @@
     <meta name="description" content="Las últimas noticias de tecnología, análisis, reviews y guías. Mantente al día con smartphones, IA, gadgets y más." />
     <meta name="author" content="TechNews" />
     <meta name="keywords" content="tecnología, noticias, smartphones, IA, gadgets, software, videojuegos, reviews, análisis" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://technews.lovable.app" />
     
-    <!-- Google Fonts -->
+    <!-- Performance optimizations -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Critical font preload -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsMediaOrganization",
+      "name": "TechNews",
+      "url": "https://technews.lovable.app",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://technews.lovable.app/favicon.ico"
+      },
+      "description": "Las últimas noticias de tecnología, análisis, reviews y guías",
+      "sameAs": [
+        "@technews_dev"
+      ]
+    }
+    </script>
+
+    <!-- Open Graph -->
     <meta property="og:title" content="TechNews - Noticias de Tecnología" />
     <meta property="og:description" content="Las últimas noticias de tecnología, análisis, reviews y guías. Mantente al día con smartphones, IA, gadgets y más." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:url" content="https://technews.lovable.app" />
+    <meta property="og:image" content="https://technews.lovable.app/favicon.ico" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="TechNews" />
 
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@technews_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta name="twitter:creator" content="@technews_dev" />
+    <meta name="twitter:title" content="TechNews - Noticias de Tecnología" />
+    <meta name="twitter:description" content="Las últimas noticias de tecnología, análisis, reviews y guías. Mantente al día con smartphones, IA, gadgets y más." />
+    <meta name="twitter:image" content="https://technews.lovable.app/favicon.ico" />
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#22c55e" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="TechNews" />
   </head>
 
   <body>
