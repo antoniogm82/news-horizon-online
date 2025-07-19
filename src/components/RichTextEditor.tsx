@@ -65,11 +65,18 @@ const RichTextEditor = ({ content, onChange }: RichTextEditorProps) => {
         HTMLAttributes: {
           class: 'editor-link',
         },
+        openOnClick: false,
       }),
     ],
     content,
+    editable: true,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
+    },
+    editorProps: {
+      attributes: {
+        class: 'prose prose-sm max-w-none focus:outline-none min-h-[400px] p-4',
+      },
     },
   });
 
@@ -356,10 +363,9 @@ const RichTextEditor = ({ content, onChange }: RichTextEditorProps) => {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         {/* Editor */}
         <div className="lg:col-span-3">
-          <EditorContent 
-            editor={editor} 
-            className="prose prose-sm max-w-none border rounded-lg p-4 min-h-[500px] focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent"
-          />
+          <div className="border rounded-lg min-h-[500px] focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent">
+            <EditorContent editor={editor} />
+          </div>
         </div>
 
         {/* Tabla de contenidos */}
