@@ -30,14 +30,16 @@ export default defineConfig(({ mode }) => ({
         },
       },
     },
-    // Enable compression
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: mode === 'production',
-        drop_debugger: mode === 'production',
+    // Enable compression only in production
+    ...(mode === 'production' && {
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
       },
-    },
+    }),
   },
   // Performance optimizations
   optimizeDeps: {
