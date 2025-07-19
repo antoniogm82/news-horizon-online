@@ -20,9 +20,40 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- Critical font preload -->
+    <!-- Preload critical resources -->
+    <link rel="modulepreload" href="/src/main.tsx">
+    <link rel="modulepreload" href="/src/App.tsx">
+    
+    <!-- Critical font preload with display swap -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Critical CSS inline for above-the-fold content -->
+    <style>
+      body { font-family: system-ui, -apple-system, sans-serif; }
+      .loading-spinner { 
+        min-height: 100vh; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        background: hsl(0 0% 100%);
+      }
+      @media (prefers-color-scheme: dark) {
+        .loading-spinner { background: hsl(224 71% 4%); }
+      }
+      .spinner {
+        width: 32px;
+        height: 32px;
+        border: 2px solid transparent;
+        border-top: 2px solid hsl(142 76% 36%);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
 
     <!-- Structured Data -->
     <script type="application/ld+json">

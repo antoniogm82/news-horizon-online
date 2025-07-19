@@ -20,26 +20,37 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    // Optimize bundle size
+    // Optimize bundle size and performance
     rollupOptions: {
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
+          router: ['react-router-dom'],
+          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-select'],
           editor: ['@tiptap/react', '@tiptap/starter-kit'],
+          supabase: ['@supabase/supabase-js', '@tanstack/react-query'],
+          utils: ['clsx', 'tailwind-merge', 'class-variance-authority'],
         },
       },
     },
-    // Enable compression only in production
+    // Enhanced minification for production
     ...(mode === 'production' && {
       minify: 'terser',
       terserOptions: {
         compress: {
           drop_console: true,
           drop_debugger: true,
+          pure_funcs: ['console.log'],
+          passes: 2,
+        },
+        mangle: {
+          safari10: true,
         },
       },
     }),
+    // Optimize CSS
+    cssCodeSplit: true,
+    cssMinify: true,
   },
   // Performance optimizations
   optimizeDeps: {

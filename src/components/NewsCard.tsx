@@ -62,10 +62,11 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
           src={news.image_url || '/placeholder.svg'} 
           alt={news.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          loading="lazy"
+          loading={featured ? "eager" : "lazy"}
           decoding="async"
           width="800"
           height="500"
+          fetchPriority={featured ? "high" : "auto"}
         />
         <div className="absolute inset-0 gradient-hero" />
         <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end text-white">

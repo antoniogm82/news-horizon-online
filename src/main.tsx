@@ -5,10 +5,10 @@ import './index.css'
 // Lazy load the main App component for better performance
 const App = lazy(() => import('./App.tsx'))
 
-// Loading component optimized for CLS
+// Loading component optimized for CLS and performance
 const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center bg-background">
-    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+  <div className="loading-spinner">
+    <div className="spinner"></div>
   </div>
 )
 
