@@ -56,7 +56,7 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
     return (
       <div 
         className="relative h-96 md:h-[500px] overflow-hidden rounded-xl group cursor-pointer"
-        onClick={() => navigate(`/articulo/${news.id}`)}
+        onClick={() => navigate(`/${news.category}/${news.slug}`)}
       >
         <img 
           src={news.image_url || '/placeholder.svg'} 
@@ -96,7 +96,7 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
     return (
       <article 
         className="flex space-x-3 hover-lift cursor-pointer"
-        onClick={() => navigate(`/articulo/${news.id}`)}
+        onClick={() => navigate(`/${news.category}/${news.slug}`)}
       >
         <img 
           src={news.image_url || '/placeholder.svg'} 
@@ -120,7 +120,7 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
   return (
     <article 
       className="bg-card border border-border rounded-xl overflow-hidden hover-lift transition-all duration-300 group cursor-pointer"
-      onClick={() => navigate(`/articulo/${news.id}`)}
+      onClick={() => navigate(`/${news.category}/${news.slug}`)}
     >
       <div className="relative overflow-hidden">
         <img 

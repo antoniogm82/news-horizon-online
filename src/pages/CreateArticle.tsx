@@ -11,21 +11,30 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, Save, Eye, X } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Loader2, Save, Eye, X, Calendar as CalendarIcon } from 'lucide-react';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 const categories = [
-  { value: 'smartphones', label: 'Smartphones' },
-  { value: 'ai', label: 'Inteligencia Artificial' },
-  { value: 'gadgets', label: 'Gadgets' },
-  { value: 'software', label: 'Software' },
-  { value: 'videojuegos', label: 'Videojuegos' },
-  { value: 'reviews', label: 'Reviews' }
+  { value: 'tecnologia', label: 'Tecnología' },
+  { value: 'educacion', label: 'Educación' },
+  { value: 'innovacion', label: 'Innovación' },
+  { value: 'tendencias', label: 'Tendencias' },
+  { value: 'reviews', label: 'Reviews' },
+  { value: 'general', label: 'General' }
 ];
 
 const CreateArticle = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [keywords, setKeywords] = useState<string[]>([]);
   const [keywordInput, setKeywordInput] = useState('');
+  const [isScheduled, setIsScheduled] = useState(false);
+  const [publishDate, setPublishDate] = useState<Date>();
+  const [publishTime, setPublishTime] = useState('');
+  const [isHeroPinned, setIsHeroPinned] = useState(false);
   const { user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -77,6 +86,19 @@ const CreateArticle = () => {
     const slug = generateSlug(title);
     const reading_time = calculateReadingTime(content);
 
+    // Determinar fecha de publicación
+    let publishDateTime = null;
+    let shouldPublish = !isDraft;
+    
+    if (isScheduled && publishDate && publishTime && !isDraft) {
+      const [hours, minutes] = publishTime.split(':').map(Number);
+      publishDateTime = new Date(publishDate);
+      publishDateTime.setHours(hours, minutes, 0, 0);
+      shouldPublish = publishDateTime <= new Date();
+    } else if (!isDraft) {
+      publishDateTime = new Date();
+    }
+
     try {
       const { data, error } = await supabase
         .from('posts')
@@ -99,19 +121,27 @@ const CreateArticle = () => {
           twitter_description: og_description || excerpt,
           twitter_image: image_url,
           focus_keyword,
-          published: !isDraft,
-          published_at: !isDraft ? new Date().toISOString() : null
+          published: shouldPublish,
+          published_at: publishDateTime?.toISOString() || null,
+          is_hero_pinned: isHeroPinned
         })
         .select()
         .single();
 
       if (error) throw error;
 
+      let successMessage = "";
+      if (isDraft) {
+        successMessage = "Tu artículo se ha guardado como borrador";
+      } else if (isScheduled && !shouldPublish) {
+        successMessage = `Artículo programado para el ${format(publishDateTime!, 'PPP', { locale: es })} a las ${format(publishDateTime!, 'HH:mm')}`;
+      } else {
+        successMessage = "Tu artículo ha sido publicado exitosamente";
+      }
+
       toast({
-        title: isDraft ? "Borrador guardado" : "Artículo publicado",
-        description: isDraft 
-          ? "Tu artículo se ha guardado como borrador"
-          : "Tu artículo ha sido publicado exitosamente"
+        title: isDraft ? "Borrador guardado" : (shouldPublish ? "Artículo publicado" : "Artículo programado"),
+        description: successMessage
       });
 
       navigate('/dashboard/articulos');
@@ -141,6 +171,7 @@ const CreateArticle = () => {
             <TabsTrigger value="content">Contenido</TabsTrigger>
             <TabsTrigger value="seo">SEO</TabsTrigger>
             <TabsTrigger value="social">Redes Sociales</TabsTrigger>
+            <TabsTrigger value="publish">Publicación</TabsTrigger>
           </TabsList>
 
           <TabsContent value="content" className="space-y-6">
@@ -315,6 +346,84 @@ const CreateArticle = () => {
                     placeholder="Si está vacío, se usará el resumen"
                     rows={3}
                   />
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="publish" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Configuración de Publicación</CardTitle>
+                <CardDescription>
+                  Configura cuándo y cómo se publicará tu artículo
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <Label className="text-sm font-medium">Fijar al Hero</Label>
+                    <p className="text-xs text-muted-foreground">
+                      El artículo aparecerá en el carrusel principal de la página de inicio
+                    </p>
+                  </div>
+                  <Switch
+                    checked={isHeroPinned}
+                    onCheckedChange={setIsHeroPinned}
+                  />
+                </div>
+
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-1">
+                      <Label className="text-sm font-medium">Programar publicación</Label>
+                      <p className="text-xs text-muted-foreground">
+                        Publica el artículo en una fecha y hora específica
+                      </p>
+                    </div>
+                    <Switch
+                      checked={isScheduled}
+                      onCheckedChange={setIsScheduled}
+                    />
+                  </div>
+
+                  {isScheduled && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 border rounded-lg bg-muted/20">
+                      <div className="space-y-2">
+                        <Label>Fecha de publicación</Label>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              className="w-full justify-start text-left font-normal"
+                            >
+                              <CalendarIcon className="mr-2 h-4 w-4" />
+                              {publishDate ? format(publishDate, 'PPP', { locale: es }) : 'Seleccionar fecha'}
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0">
+                            <Calendar
+                              mode="single"
+                              selected={publishDate}
+                              onSelect={setPublishDate}
+                              disabled={(date) => date < new Date()}
+                              initialFocus
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label>Hora de publicación</Label>
+                        <Input
+                          type="time"
+                          value={publishTime}
+                          onChange={(e) => setPublishTime(e.target.value)}
+                          placeholder="12:00"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>

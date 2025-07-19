@@ -11,7 +11,7 @@ import { NewsItem } from '@/types/news';
 import { useToast } from '@/hooks/use-toast';
 
 const Article = () => {
-  const { id } = useParams();
+  const { category, slug } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [article, setArticle] = useState<NewsItem | null>(null);
@@ -20,13 +20,14 @@ const Article = () => {
 
   useEffect(() => {
     const fetchArticle = async () => {
-      if (!id) return;
+      if (!category || !slug) return;
       
       try {
         const { data: articleData, error } = await supabase
           .from('posts')
           .select('*')
-          .eq('id', id)
+          .eq('category', category)
+          .eq('slug', slug)
           .eq('published', true)
           .single();
 
@@ -67,7 +68,7 @@ const Article = () => {
     };
 
     fetchArticle();
-  }, [id, navigate]);
+  }, [category, slug, navigate]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);

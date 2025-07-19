@@ -8,6 +8,8 @@ import { useToast } from '@/hooks/use-toast';
 import Dashboard from '@/pages/Dashboard';
 import CreateArticle from '@/pages/CreateArticle';
 import MyArticles from '@/pages/MyArticles';
+import HeroManager from '@/pages/HeroManager';
+import ScheduledPosts from '@/pages/ScheduledPosts';
 import Profile from '@/pages/Profile';
 import Settings from '@/pages/Settings';
 
@@ -73,6 +75,8 @@ const DashboardLayout = () => {
               <Route index element={<Dashboard />} />
               <Route path="crear" element={<CreateArticle />} />
               <Route path="articulos" element={<MyArticles />} />
+              <Route path="hero" element={<HeroManager />} />
+              <Route path="programados" element={<ScheduledPosts />} />
               <Route path="articulos/:id" element={<div>Article Editor (TODO)</div>} />
               <Route path="perfil" element={<Profile />} />
               <Route path="configuracion" element={<Settings />} />

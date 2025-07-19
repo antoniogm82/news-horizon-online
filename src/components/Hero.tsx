@@ -16,7 +16,7 @@ const Hero = () => {
         .from('posts')
         .select('*')
         .eq('published', true)
-        .eq('featured', true)
+        .eq('is_hero_pinned', true)
         .order('created_at', { ascending: false })
         .limit(5);
       

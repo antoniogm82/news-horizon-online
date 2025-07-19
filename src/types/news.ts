@@ -10,7 +10,9 @@ export interface NewsItem {
   featured: boolean | null;
   reading_time: number | null;
   published: boolean | null;
+  published_at: string | null;
   slug: string;
+  is_hero_pinned?: boolean | null;
 }
 
 export const categories = [

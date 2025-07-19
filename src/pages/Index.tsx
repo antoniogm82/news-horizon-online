@@ -54,18 +54,21 @@ const Index = () => {
     fetchPosts();
   }, []);
 
-  // Filter posts based on category and search
+  // Filter posts based on category and search, excluding hero pinned posts
   useEffect(() => {
-    let filtered = allNews;
+    let filtered = allNews.filter(item => !item.is_hero_pinned); // Excluir artículos fijos del hero
     
     if (searchQuery) {
       filtered = allNews.filter(item => 
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (item.excerpt && item.excerpt.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        item.category.toLowerCase().includes(searchQuery.toLowerCase())
+        item.category.toLowerCase().includes(searchQuery.toLowerCase())) &&
+        !item.is_hero_pinned // También excluir del search
       );
     } else if (activeCategory !== 'all') {
-      filtered = allNews.filter(item => item.category === activeCategory);
+      filtered = allNews.filter(item => 
+        item.category === activeCategory && !item.is_hero_pinned
+      );
     }
     
     setFilteredNews(filtered);

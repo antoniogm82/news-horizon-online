@@ -27,6 +27,7 @@ export type Database = {
           focus_keyword: string | null
           id: string
           image_url: string | null
+          is_hero_pinned: boolean | null
           keywords: string[] | null
           meta_description: string | null
           meta_title: string | null
@@ -60,6 +61,7 @@ export type Database = {
           focus_keyword?: string | null
           id?: string
           image_url?: string | null
+          is_hero_pinned?: boolean | null
           keywords?: string[] | null
           meta_description?: string | null
           meta_title?: string | null
@@ -93,6 +95,7 @@ export type Database = {
           focus_keyword?: string | null
           id?: string
           image_url?: string | null
+          is_hero_pinned?: boolean | null
           keywords?: string[] | null
           meta_description?: string | null
           meta_title?: string | null
