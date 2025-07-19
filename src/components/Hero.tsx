@@ -1,13 +1,30 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { getFeaturedNews } from '@/data/news';
+import { supabase } from '@/integrations/supabase/client';
+import { NewsItem } from '@/types/news';
 import NewsCard from './NewsCard';
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const featuredNews = getFeaturedNews();
+  const [featuredNews, setFeaturedNews] = useState<NewsItem[]>([]);
+
+  useEffect(() => {
+    const fetchFeaturedNews = async () => {
+      const { data } = await supabase
+        .from('posts')
+        .select('*')
+        .eq('published', true)
+        .eq('featured', true)
+        .order('created_at', { ascending: false })
+        .limit(5);
+      
+      setFeaturedNews(data || []);
+    };
+
+    fetchFeaturedNews();
+  }, []);
 
   useEffect(() => {
     if (!isAutoPlaying) return;

@@ -1,6 +1,8 @@
 import { Clock, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { NewsItem } from '@/data/news';
+import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { NewsItem } from '@/types/news';
 
 interface NewsCardProps {
   news: NewsItem;
@@ -10,6 +12,25 @@ interface NewsCardProps {
 
 const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps) => {
   const navigate = useNavigate();
+  const [authorName, setAuthorName] = useState<string>('Autor');
+
+  useEffect(() => {
+    const fetchAuthor = async () => {
+      if (news.author_id) {
+        const { data } = await supabase
+          .from('profiles')
+          .select('display_name')
+          .eq('user_id', news.author_id)
+          .single();
+        
+        if (data?.display_name) {
+          setAuthorName(data.display_name);
+        }
+      }
+    };
+    
+    fetchAuthor();
+  }, [news.author_id]);
   const getCategoryClass = (category: string) => {
     const categoryClasses = {
       smartphones: 'category-smartphones',
@@ -38,7 +59,7 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
         onClick={() => navigate(`/articulo/${news.id}`)}
       >
         <img 
-          src={news.image} 
+          src={news.image_url || '/placeholder.svg'} 
           alt={news.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
@@ -57,13 +78,13 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
             <div className="flex items-center space-x-4 text-sm text-gray-300">
               <div className="flex items-center space-x-1">
                 <User className="h-4 w-4" />
-                <span>{news.author}</span>
+                <span>{authorName}</span>
               </div>
               <div className="flex items-center space-x-1">
                 <Clock className="h-4 w-4" />
-                <span>{news.readTime}</span>
+                <span>{news.reading_time || 5} min</span>
               </div>
-              <span>{formatDate(news.date)}</span>
+              <span>{formatDate(news.created_at)}</span>
             </div>
           </div>
         </div>
@@ -78,7 +99,7 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
         onClick={() => navigate(`/articulo/${news.id}`)}
       >
         <img 
-          src={news.image} 
+          src={news.image_url || '/placeholder.svg'} 
           alt={news.title}
           className="w-20 h-20 rounded-lg object-cover flex-shrink-0"
         />
@@ -87,9 +108,9 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
             {news.title}
           </h3>
           <div className="flex items-center space-x-2 mt-2 text-xs text-muted-foreground">
-            <span>{formatDate(news.date)}</span>
+            <span>{formatDate(news.created_at)}</span>
             <span>•</span>
-            <span>{news.readTime}</span>
+            <span>{news.reading_time || 5} min</span>
           </div>
         </div>
       </article>
@@ -103,7 +124,7 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
     >
       <div className="relative overflow-hidden">
         <img 
-          src={news.image} 
+          src={news.image_url || '/placeholder.svg'} 
           alt={news.title}
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
         />
@@ -112,10 +133,10 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
             {news.category.charAt(0).toUpperCase() + news.category.slice(1)}
           </span>
         </div>
-        {news.trending && (
+        {news.featured && (
           <div className="absolute top-3 right-3">
             <span className="inline-block px-2 py-1 bg-red-500 text-white text-xs font-medium rounded-full">
-              Trending
+              Destacado
             </span>
           </div>
         )}
@@ -133,14 +154,14 @@ const NewsCard = ({ news, featured = false, variant = 'default' }: NewsCardProps
           <div className="flex items-center space-x-3">
             <div className="flex items-center space-x-1">
               <User className="h-4 w-4" />
-              <span>{news.author}</span>
+              <span>{authorName}</span>
             </div>
             <div className="flex items-center space-x-1">
               <Clock className="h-4 w-4" />
-              <span>{news.readTime}</span>
+              <span>{news.reading_time || 5} min</span>
             </div>
           </div>
-          <span>{formatDate(news.date)}</span>
+          <span>{formatDate(news.created_at)}</span>
         </div>
       </div>
     </article>

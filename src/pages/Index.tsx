@@ -7,14 +7,16 @@ import Sidebar from '@/components/Sidebar';
 import Footer from '@/components/Footer';
 import CategoryFilter from '@/components/CategoryFilter';
 import Pagination from '@/components/Pagination';
-import { newsData, getNewsByCategory, searchNews } from '@/data/news';
+import { supabase } from '@/integrations/supabase/client';
+import { NewsItem } from '@/types/news';
 
 const Index = () => {
-  const [filteredNews, setFilteredNews] = useState(newsData);
+  const [filteredNews, setFilteredNews] = useState<NewsItem[]>([]);
+  const [allNews, setAllNews] = useState<NewsItem[]>([]);
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
   
   const newsPerPage = 9;
@@ -22,20 +24,53 @@ const Index = () => {
   const startIndex = (currentPage - 1) * newsPerPage;
   const currentNews = filteredNews.slice(startIndex, startIndex + newsPerPage);
 
+  // Fetch posts from Supabase
   useEffect(() => {
-    setIsLoading(true);
-    let filtered = newsData;
+    const fetchPosts = async () => {
+      setIsLoading(true);
+      try {
+        const { data, error } = await supabase
+          .from('posts')
+          .select('*')
+          .eq('published', true)
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+        
+        setAllNews(data || []);
+        setFilteredNews(data || []);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        toast({
+          title: "Error",
+          description: "No se pudieron cargar los artículos",
+          variant: "destructive"
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  // Filter posts based on category and search
+  useEffect(() => {
+    let filtered = allNews;
     
     if (searchQuery) {
-      filtered = searchNews(searchQuery);
+      filtered = allNews.filter(item => 
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (item.excerpt && item.excerpt.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        item.category.toLowerCase().includes(searchQuery.toLowerCase())
+      );
     } else if (activeCategory !== 'all') {
-      filtered = getNewsByCategory(activeCategory);
+      filtered = allNews.filter(item => item.category === activeCategory);
     }
     
     setFilteredNews(filtered);
     setCurrentPage(1);
-    setIsLoading(false);
-  }, [activeCategory, searchQuery]);
+  }, [activeCategory, searchQuery, allNews]);
 
   const handleCategoryFilter = (category: string) => {
     setActiveCategory(category);

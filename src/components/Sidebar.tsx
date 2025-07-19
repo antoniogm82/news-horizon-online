@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Mail, TrendingUp, Calendar, Tag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { getTrendingNews, categories } from '@/data/news';
+import { supabase } from '@/integrations/supabase/client';
+import { NewsItem, categories } from '@/types/news';
 import NewsCard from './NewsCard';
 
 interface SidebarProps {
@@ -14,7 +15,22 @@ interface SidebarProps {
 const Sidebar = ({ onCategoryFilter, activeCategory }: SidebarProps) => {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const trendingNews = getTrendingNews();
+  const [trendingNews, setTrendingNews] = useState<NewsItem[]>([]);
+
+  useEffect(() => {
+    const fetchTrendingNews = async () => {
+      const { data } = await supabase
+        .from('posts')
+        .select('*')
+        .eq('published', true)
+        .order('views', { ascending: false })
+        .limit(5);
+      
+      setTrendingNews(data || []);
+    };
+
+    fetchTrendingNews();
+  }, []);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();

@@ -6,7 +6,8 @@ import { Badge } from '@/components/ui/badge';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import NewsCard from '@/components/NewsCard';
-import { newsData, NewsItem, getTrendingNews } from '@/data/news';
+import { supabase } from '@/integrations/supabase/client';
+import { NewsItem } from '@/types/news';
 import { useToast } from '@/hooks/use-toast';
 
 const Article = () => {
@@ -15,21 +16,57 @@ const Article = () => {
   const { toast } = useToast();
   const [article, setArticle] = useState<NewsItem | null>(null);
   const [relatedNews, setRelatedNews] = useState<NewsItem[]>([]);
+  const [authorName, setAuthorName] = useState<string>('Autor');
 
   useEffect(() => {
-    if (id) {
-      const foundArticle = newsData.find(item => item.id === parseInt(id));
-      if (foundArticle) {
-        setArticle(foundArticle);
+    const fetchArticle = async () => {
+      if (!id) return;
+      
+      try {
+        const { data: articleData, error } = await supabase
+          .from('posts')
+          .select('*')
+          .eq('id', id)
+          .eq('published', true)
+          .single();
+
+        if (error || !articleData) {
+          navigate('/404');
+          return;
+        }
+
+        setArticle(articleData);
+
+        // Fetch author name
+        if (articleData.author_id) {
+          const { data: authorData } = await supabase
+            .from('profiles')
+            .select('display_name')
+            .eq('user_id', articleData.author_id)
+            .single();
+          
+          if (authorData?.display_name) {
+            setAuthorName(authorData.display_name);
+          }
+        }
+
         // Get related news from the same category
-        const related = newsData
-          .filter(item => item.category === foundArticle.category && item.id !== foundArticle.id)
-          .slice(0, 3);
-        setRelatedNews(related);
-      } else {
+        const { data: relatedData } = await supabase
+          .from('posts')
+          .select('*')
+          .eq('published', true)
+          .eq('category', articleData.category)
+          .neq('id', articleData.id)
+          .limit(3);
+        
+        setRelatedNews(relatedData || []);
+      } catch (error) {
+        console.error('Error fetching article:', error);
         navigate('/404');
       }
-    }
+    };
+
+    fetchArticle();
   }, [id, navigate]);
 
   const formatDate = (dateString: string) => {
@@ -142,20 +179,20 @@ const Article = () => {
               <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                 <div className="flex items-center space-x-1">
                   <User className="h-4 w-4" />
-                  <span>{article.author}</span>
+                  <span>{authorName}</span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <Clock className="h-4 w-4" />
-                  <span>{article.readTime}</span>
+                  <span>{article.reading_time || 5} min</span>
                 </div>
-                <span>{formatDate(article.date)}</span>
+                <span>{formatDate(article.created_at)}</span>
               </div>
             </div>
 
             {/* Featured image */}
             <div className="relative">
               <img 
-                src={article.image} 
+                src={article.image_url || '/placeholder.svg'} 
                 alt={article.title}
                 className="w-full h-64 md:h-96 object-cover rounded-xl"
               />
